@@ -43,4 +43,5 @@ jobs:
           username: gdbmsdev
           password: ${{ secrets.SSH_PASSWORD }}
           server-dir: /tomcat/webapps-javaee/
+          debug: true  # 디버그 활성화 (배포 실패 원인 파악하기 위해 추가함. 24.11.18)
           # clean-destination-dir: false  # 더 이상 사용되지 않음 (필요 없으면 제거)
