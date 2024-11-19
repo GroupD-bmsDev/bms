@@ -27,19 +27,21 @@ $(document).ready(function () {
     });
 
     $('#member_logout').click(function () {
-        // ajaxRequest 함수를 사용하여 로그아웃 처리
-        ajaxRequest(
-            '/admin/acm/logout.do',
-            '',
-            'POST',
-            function (response) {
-                // 로그인 성공 시 대시보드 페이지로 리디렉트
-                location.href = '/admin/acm/login';
-            },
-            function () {
-                location.href = '/admin/acm/login';
-            }
-        );
+        if( confirm("로그아웃 하시겠습니까?") ) {
+            // ajaxRequest 함수를 사용하여 로그아웃 처리
+            ajaxRequest(
+                '/admin/acm/logout.do',
+                '',
+                'POST',
+                function (response) {
+                    // 로그인 성공 시 대시보드 페이지로 리디렉트
+                    location.href = '/admin/acm/login';
+                },
+                function () {
+                    location.href = '/admin/acm/login';
+                }
+            );
+        }
     });
 
     $('#infoUrl').on('click', function (event) {
