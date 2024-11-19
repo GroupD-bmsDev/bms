@@ -8,7 +8,7 @@
                     <div class="sidebar_user_info">
                         <div class="sidebar_user_left">
                             <span class="sidebar_user_name" th:text="${member.name}"></span>
-                            <span class="sidebar_user_grade" th:text="${member.codeName}"></span>
+                            <span class="sidebar_user_grade" th:text="${member.teamCode + ' ' + member.jobPosition}"></span>
                             <input type="hidden" id="userid" th:value="${member.userid}" />
                         </div>
                         <div class="sidebar_user_right">
