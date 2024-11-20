@@ -101,6 +101,9 @@ public class CustomerBoardController extends BaseController{
         String userId     = StringUtil.objectToString(registrationMap.get("userId"));                   //관리자 ID
         String siteKey  = StringUtil.objectToString(registrationMap.get("siteKey"));                  //업체키
 
+        //TODO 유지보수 게시판 정보 get set return
+
+
         // GET 요청인지 확인
         if ("GET".equalsIgnoreCase(request.getMethod())) {
             // GET 요청일 경우 처리할 로직 작성
