@@ -120,11 +120,6 @@
               #{gdTeamCode, jdbcType=VARCHAR},
               #{gdUserKey, jdbcType=VARCHAR},
               #{taskState, jdbcType=VARCHAR},
-              #{file1, jdbcType=VARCHAR},
-              #{file2, jdbcType=VARCHAR},
-              #{file3, jdbcType=VARCHAR},
-              #{file4, jdbcType=VARCHAR},
-              #{file5, jdbcType=VARCHAR},
               #{siteKey, jdbcType=INTEGER},
               
               #{retTrbSeq, mode=OUT, jdbcType=INTEGER},
