@@ -60,11 +60,13 @@ public class AccountManagementController {
         // 로그인 성공 시 세션에 회원 정보를 저장
         if (loginResultMap != null){
 
-            if(loginResultMap.get("member") != null)
-                request.getSession().setAttribute("member", loginResultMap.get("member"));
+            if(loginResultMap.get("member") != null){
+                request.getSession().setAttribute("member", loginResultMap.get("member"));      //회원정보 세션 저장
+                return ResponseEntity.ok(loginResultMap);
+            }else{
+                return ResponseEntity.status(500).build();
+            }
             
-            // 로그인 결과 반환
-            return ResponseEntity.ok(loginResultMap);
         }
 
         // 로그인 실패 시 500 에러 반환
