@@ -101,8 +101,7 @@ public class CustomerBoardController extends BaseController{
         String userId     = StringUtil.objectToString(registrationMap.get("userId"));                   //관리자 ID
         String siteKey  = StringUtil.objectToString(registrationMap.get("siteKey"));                  //업체키
 
-        //TODO 유지보수 게시판 정보 get set return
-
+       
 
         // GET 요청인지 확인
         if ("GET".equalsIgnoreCase(request.getMethod())) {
@@ -396,7 +395,7 @@ public class CustomerBoardController extends BaseController{
     @RequestMapping(value = "/maintenance_write", method = { RequestMethod.POST, RequestMethod.GET })
     public String maintenance_write(HttpServletRequest request, Model model) {
 
-        HashMap<String, Object> registrationMap = setRequest(request);
+        //HashMap<String, Object> registrationMap = setRequest(request);
 
         
 

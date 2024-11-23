@@ -87,14 +87,7 @@ function showAlert(message) {
 
 //로그아웃, 로그인 페이지로 이동
 function logout() {
-
-    // ajaxRequest 함수를 사용하여 로그인 처리
-    ajaxRequest( "/mmb/logout.do", "", "POST", function () {
-      // 로그인 성공 시 대시보드 페이지로 리디렉트
-      location.href = "/mmb/login";
-  }, function () {
-     location.href = "/mmb/login";
-  });
+   alert("no action! need to modify that new redirect url")
 }
 
 /**
