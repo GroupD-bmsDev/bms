@@ -10,6 +10,7 @@
                             <span class="sidebar_user_name" th:text="${member.name}"></span>
                             <span class="sidebar_user_grade" th:text="${member.teamCode + ' ' + member.jobPosition}"></span>
                             <input type="hidden" id="userid" th:value="${member.userid}" />
+                            <input type="hidden" id="loginSiteKey" th:value="${member.siteKey}" />
                         </div>
                         <div class="sidebar_user_right">
                             <a href="#" class="user_info_btn" id="member_info"><img src="/img/sidebar_user_right01.svg" alt="회원정보" /></a>
@@ -26,7 +27,7 @@
             <div class="sidebar_bot">
                 <ul class="side_menu">
                     <li class="side_menu01">
-                        <a id="side_dsb" href="/admin/dsb/main" class="active"><img src="/img/side_menu01.svg" alt="대시보드 홈" />대시보드 홈</a>
+                        <a id="" href="/admin/dsb/main" class="active"><img src="/img/side_menu01.svg" alt="대시보드 홈" />대시보드 홈</a>
                     </li>
                     <li class="side_menu02">
                         <a id="side_pif" href="#"><img src="/img/side_menu02.svg" alt="프로젝트 정보" />프로젝트 정보</a>
