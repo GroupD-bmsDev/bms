@@ -186,7 +186,7 @@ function maintanceListLoad() {
                                     </ul>
                                 </span>
                             </div>                           
-                            <a href="naver.com" class="main_board_subject">${item.title || ''}</a>
+                            <a href="/admin/csf/maintenance" class="main_board_subject">${item.title || ''}</a>
                             <span class="main_board_comment">${item.commentCnt || '0'}</span>
                             ${fileImageHTML} <!-- 첨부파일 이미지 부분 -->
                         </div>
