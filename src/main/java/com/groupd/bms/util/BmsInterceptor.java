@@ -72,6 +72,9 @@ public class BmsInterceptor implements HandlerInterceptor {
 
             //비정상 접근 체크
             if(checkAbnormal(request,response)){
+                log.debug("==================== 비정상접근 ====================");
+                log.debug("========== BsmInterceptor.java확인필요 =============");
+                log.debug("==================== 비정상접근 ====================");
                 return false;
             }
             
