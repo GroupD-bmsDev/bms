@@ -1,13 +1,55 @@
 $(document).ready(function () {
 
-    $('.side_menu > li > a').click(function (e) {
-        e.preventDefault();
-        $(this).toggleClass('open');
-        $('.side_menu > li > a').not(this).removeClass('open');
-        var subMenu = $(this).siblings('.side_sub_menu');
-        $('.side_sub_menu').not(subMenu).slideUp();
-        subMenu.slideToggle();
+     // 현재 URL 경로 가져오기
+     var currentPath = window.location.pathname;
+
+    // URL 기반 활성화 처리
+    $('.side_menu > li > a').each(function () {
+        if ($(this).attr('href') === currentPath) {
+            $(this).addClass('active'); // 현재 메뉴 활성화
+            $(this).siblings('.side_sub_menu').show(); // 하위 메뉴 열기
+            $(this).addClass('open'); // 부모 메뉴 열림 표시
+        }
     });
+
+    // 클릭 이벤트 처리
+    $('.side_menu > li > a').click(function (e) {
+        var subMenu = $(this).siblings('.side_sub_menu');
+        var targetUrl = $(this).attr('href');
+
+        // 현재 URL과 클릭한 URL이 같으면 아무 동작도 하지 않음
+        if (targetUrl === currentPath) {
+            e.preventDefault();
+            return;
+        }
+        
+        // 모든 메뉴 초기화
+        $('.side_menu > li > a').removeClass('active open');
+        $('.side_sub_menu').slideUp();
+
+        // 현재 메뉴에 'active' 추가
+        $(this).addClass('active');
+
+        if (subMenu.length) {
+            // 하위 메뉴가 있는 경우: 기본 동작 방지 + 토글 처리
+            e.preventDefault();
+            $(this).toggleClass('open');
+            subMenu.slideToggle();
+        } else {
+            // 하위 메뉴가 없는 경우: 페이지 이동
+            window.location.href = $(this).attr('href');
+        }
+    });
+
+    
+    // $('.side_menu > li > a').click(function (e) {
+    //     e.preventDefault();
+    //     $(this).toggleClass('open');
+    //     $('.side_menu > li > a').not(this).removeClass('open');
+    //     var subMenu = $(this).siblings('.side_sub_menu');
+    //     $('.side_sub_menu').not(subMenu).slideUp();
+    //     subMenu.slideToggle();
+    // });
 
     // a 태그 클릭 이벤트를 바인딩합니다.
     $('a[data-ajax]').click(function (event) {
