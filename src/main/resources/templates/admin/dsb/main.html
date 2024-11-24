@@ -6,6 +6,7 @@
     </th:block>
 
     <body>        
+        
         <div layout:fragment="content" id="content-wrapper" class="d-flex flex-column">
             <main class="main">
                 <section class="main_content">
@@ -72,24 +73,32 @@
                         </div>
                         <div class="main_board_menu">
                             <div class="main_board_state">
-                                <span class="active state_receive">접수</span>
-                                <span class="state_check">확인</span>
-                                <span class="state_progress">진행</span>
-                                <span class="state_complete">완료</span>
-                                <span class="state_other">기타</span>
-                                <span class="state_hold">보류</span>
+                                <span class="state_receive" data-state="RECV">접수</span>
+                                <!-- <span class="active state_receive" data-state="RECV">접수</span> -->
+                                <span class="state_check" data-state="CONF">확인</span>
+                                <span class="state_progress" data-state="PROG">진행</span>
+                                <span class="state_complete" data-state="DONE">완료</span>
+                                <span class="state_other" data-state="OTHR">기타</span>
+                                <span class="state_hold" data-state="HOLD">보류</span>                                
                             </div>
                             <div class="main_board_category">
-                                <span class="cat_mk">마케팅 / 기획<span class="category_count">10</span></span>
-                                <span class="cat_ec">광고관리<span class="category_count">10</span></span>
-                                <span class="cat_dg active">디자인<span class="category_count">10</span></span>
-                                <span class="cat_pb">퍼블리싱</span>
-                                <span class="cat_bd">영상</span>
-                                <span class="cat_cp">관리</span>
-                                <span class="cat_fn">재무</span>
+                                <span class="cat_mk" data-state="MARKETING">마케팅</span>
+                                <span class="cat_mk" data-state="MARKETING">기획<span class="category_count">10</span></span>
+                                <span class="cat_ec" data-state="AD_MNG">광고관리<span class="category_count">10</span></span>
+                                <span class="cat_dg" data-state="DESIGN">디자인<span class="category_count">10</span></span>
+                                <!-- <span class="cat_dg active">디자인<span class="category_count">10</span></span> -->
+                                <span class="cat_pb" data-state="DESIGN">퍼블리싱</span>
+                                <span class="cat_bd" data-state="MEDIA">영상</span>
+                                <span class="cat_cp" data-state="MANAGE">관리</span>
+                                <span class="cat_fn" data-state="FINANCE">재무</span>
                             </div>
                         </div>
-
+                        <form id="taskForm">
+                            <input type="hidden" id="taskStateWord" name="taskStateWord" value="">
+                            <input type="hidden" id="taskStateType" name="taskStateType" value="">
+                            <input type="hidden" id="gdDepartCodeWord" name="gdDepartCodeWord" value="">
+                            <input type="hidden" id="gdDepartCodeType" name="gdDepartCodeType" value="">
+                        </form>
                         <ul class="main_board_wrap">
                             <!-- 게시판 List 출력부분 -->
                         </ul> 

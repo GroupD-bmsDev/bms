@@ -29,13 +29,34 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 */
 $(document).ready(function () {
+    $('#taskStateWord').val("");    //요청상태 선택 초기화
+    $('#taskStateType').val("");    //요청상태 선택 초기화
+    $('#gdDepartCodeWord').val("");    //부서선택 초기화
+    $('#gdDepartCodeType').val("");    //부서선택 초기화
+    
     $('.main_board_state>span').click(function () {
         $('.main_board_state>span').removeClass('active');
         $(this).addClass('active');
+        
+        // 업무요청 클릭시 data-state 값으로 설정
+        var selectedState = $(this).data('state');
+        $('#taskStateWord').val(selectedState); // hidden 필드에 taskStateWord 값 저장
+        $('#taskStateType').val("selTaskState"); 
+
+        // 리스트 재호출
+        maintanceListLoad();
     });
     $('.main_board_category>span').click(function () {
         $('.main_board_category>span').removeClass('active');
         $(this).addClass('active');
+        
+        // 부서 클릭한 span의 data-state 값으로 설정
+        var selectedState = $(this).data('state');
+        $('#gdDepartCodeWord').val(selectedState); // hidden 필드에 taskStateWord 값 저장
+        $('#gdDepartCodeType').val("selGdDepartCode"); 
+
+        // 리스트 재호출
+        maintanceListLoad();
     });
     $('.main_board_wrstate').click(function () {
         $(this).children('.state_select').slideToggle(100);
@@ -109,25 +130,23 @@ function maintanceListLoad() {
     
     var loginSiteKey = $("#siteKey").val();    
 
-    // 요청에 필요한 파라미터
-    const params = {
-        fr_date: '', // 시작 날짜 (예시)
-        to_date: '', // 종료 날짜 (예시)
-        searchType: '', // 검색 유형 (예시)
-        search: '', // 검색어 (예시)
-        userId: '', // 사용자 ID (예시)
-        siteKey: loginSiteKey, // 동적으로 셋팅된 siteKey
-        draw : 0,
-        start : 0,
-        length : 10
-    };
-    
      // AJAX POST 요청
      $.ajax({
         url: '/admin/csf/maintenance_list', // API URL
         method: 'POST', // POST 방식
-        contentType: 'application/json', // JSON 형식으로 데이터 전송
-        data: JSON.stringify(params), // 파라미터를 JSON 문자열로 변환
+        data: { // JSON 객체를 URL 인코딩 형태로 전송
+            fr_date: '',        
+            to_date: '',        
+            searchType: $('#taskStateType').val(),
+            search: $('#taskStateWord').val(),
+            searchType2: $('#gdDepartCodeType').val(),
+            search2: $('#gdDepartCodeWord').val(),
+            userId: '', 
+            siteKey: loginSiteKey, // 동적으로 셋팅된 siteKey
+            draw : 0,
+            start : 0,
+            length : 10
+        },
         success: function (response) {
             // 응답 성공 시 실행
             if (response && Array.isArray(response.data)) {

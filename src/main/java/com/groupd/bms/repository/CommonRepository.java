@@ -19,5 +19,11 @@ public interface CommonRepository {
      * @return
      */
     List<Map<String, Object>> mngList(Map<String, Object> params);
+
+    /**
+     * 게시판 종류 가져오기(파라미터2개 추가버전)
+     * @return
+     */
+    List<Map<String, Object>> mngList_v2(Map<String, Object> params);
     
 }

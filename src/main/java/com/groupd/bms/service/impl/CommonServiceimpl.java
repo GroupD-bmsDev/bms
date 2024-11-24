@@ -74,9 +74,41 @@ public class CommonServiceimpl implements CommonService {
         boardMap.put("PageSize", pagesize);
         boardMap.put("searchGubun", searchGubun);
         boardMap.put("searchVal", searchVal);
-        boardMap.put("gubun", gubun);
         boardMap.put("etcParam", etcParam);
         return commonRepository.mngList(boardMap);
+    }
+    
+
+    /*
+     * 공통 코드 정보를 조회한다.(파라미터2개 추가버전)
+     */
+    @Override
+    public Map<String, Object> mng_v2(String gubun,String userID, String pageno, String pagesize,String Sdate,String Edate,String searchGubun, String searchVal, String etcParam,String searchGubun2, String searchVal2) {
+
+        List<Map<String, Object>> mng2 = mngList_v2(gubun, userID, pageno, pagesize, Sdate, Edate, searchGubun, searchVal, etcParam, searchGubun2, searchVal2);
+        if(mng2.size() > 0) return mng2.get(0);
+        else return new HashMap<String, Object>();
+    }
+
+    /*
+     * 공통 게시판 리스트 정보를 조회한다.(파라미터2개 추가버전)
+     */
+    @Override
+    public List<Map<String, Object>> mngList_v2(String gubun,String userID, String pageno, String pagesize,String Sdate,String Edate,String searchGubun, String searchVal, String etcParam,String searchGubun2, String searchVal2) {
+
+        HashMap<String, Object> boardMap = new HashMap<>();
+        boardMap.put("gubun", gubun);
+        boardMap.put("userid", userID);
+        boardMap.put("PageNo", pageno);
+        boardMap.put("Sdate", Sdate);
+        boardMap.put("Edate", Edate);
+        boardMap.put("PageSize", pagesize);
+        boardMap.put("searchGubun", searchGubun);
+        boardMap.put("searchVal", searchVal);
+        boardMap.put("searchGubun2", searchGubun2);
+        boardMap.put("searchVal2", searchVal2);
+        boardMap.put("etcParam", etcParam);
+        return commonRepository.mngList_v2(boardMap);
     }
     
 }

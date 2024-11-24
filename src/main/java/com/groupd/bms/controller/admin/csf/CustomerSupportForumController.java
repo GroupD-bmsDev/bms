@@ -484,6 +484,8 @@ public class CustomerSupportForumController extends BaseController{
         String EndDate    = StringUtil.objectToString(registrationMap.get("to_date"));                   //종료일
         String searchType = StringUtil.objectToString(registrationMap.get("searchType"));                //검색타입     
         String search     = StringUtil.objectToString(registrationMap.get("search"));                    //검색어 
+        String searchType2 = StringUtil.objectToString(registrationMap.get("searchType2"));              //검색타입     
+        String search2     = StringUtil.objectToString(registrationMap.get("search2"));                  //검색어         
         String userId     = StringUtil.objectToString(registrationMap.get("userId"));                    //사용자ID
         String etcParam   = StringUtil.objectToString(registrationMap.get("siteKey"));                   //업체키
 
@@ -491,13 +493,12 @@ public class CustomerSupportForumController extends BaseController{
         int start = Util.parseIntOrDefault(request.getParameter("start"));                      //시작
         int length = Util.parseIntOrDefault(request.getParameter("length"), 10);    //갯수     
         
-
         // 페이지 번호 계산
         int page = start / length + 1;
         // 전체 레코드 수 가져오기
-        int totalRecords = Integer.parseInt(setPagination(commonService.mng("taskReqBoard_Out_ListCnt", userId, String.valueOf(page), String.valueOf(length), startDate.replaceAll("-", ""), EndDate.replaceAll("-", ""), searchType, search, etcParam)));
+        int totalRecords = Integer.parseInt(setPagination(commonService.mng_v2("taskReqBoard_Out_ListCnt", userId, String.valueOf(page), String.valueOf(length), startDate.replaceAll("-", ""), EndDate.replaceAll("-", ""), searchType, search, etcParam, searchType2, search2)));
         // 데이터 가져오기
-        List<Map<String, Object>> maintenanceList = commonService.mngList("taskReqBoard_Out_List", userId, String.valueOf(page), String.valueOf(length), startDate.replaceAll("-", ""), EndDate.replaceAll("-", ""), searchType, search, etcParam);
+        List<Map<String, Object>> maintenanceList = commonService.mngList_v2("taskReqBoard_Out_List", userId, String.valueOf(page), String.valueOf(length), startDate.replaceAll("-", ""), EndDate.replaceAll("-", ""), searchType, search, etcParam, searchType2, search2);
 
         resMap.put("draw", draw);
         resMap.put("recordsTotal", totalRecords);

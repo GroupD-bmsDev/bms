@@ -14,4 +14,10 @@
   </select>
   <!-- mngList 프로시저 호출 후 select할 수 있는 매퍼 End -->
 
+  <!-- mngList 프로시저 호출 후 select할 수 있는 매퍼 Start -->
+  <select id="mngList_v2" resultType="java.util.HashMap">
+    exec [dbo].[mngList] #{gubun, jdbcType=VARCHAR}, #{userid, jdbcType=VARCHAR}, #{PageNo, jdbcType=VARCHAR}, #{PageSize, jdbcType=VARCHAR}, #{Sdate, jdbcType=VARCHAR}, #{Edate, jdbcType=VARCHAR}, #{searchGubun, jdbcType=VARCHAR}, #{searchVal, jdbcType=VARCHAR}, #{searchGubun2, jdbcType=VARCHAR}, #{searchVal2, jdbcType=VARCHAR}, #{etcParam, jdbcType=VARCHAR}
+  </select>
+  <!-- mngList 프로시저 호출 후 select할 수 있는 매퍼 End -->
+
 </mapper>
