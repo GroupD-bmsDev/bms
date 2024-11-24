@@ -107,7 +107,7 @@ const gdDepartCodeClassMap = {
 // 유지보수게시판 리스트 불러오기
 function maintanceListLoad() {
     
-    var loginSiteKey = $("#loginSiteKey").val();    
+    var loginSiteKey = $("#siteKey").val();    
 
     // 요청에 필요한 파라미터
     const params = {

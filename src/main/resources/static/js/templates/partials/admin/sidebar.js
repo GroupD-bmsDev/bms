@@ -4,6 +4,16 @@ $(document).ready(function () {
         $(this).toggleClass('open');
         $('.side_menu > li > a').not(this).removeClass('open');
         var subMenu = $(this).siblings('.side_sub_menu');
+
+        // 하위 메뉴가 없는 경우, href로 바로 이동
+        if (subMenu.length === 0) {
+            var url = $(this).attr('href');            
+            if (url) {
+                window.location.href = url;
+            }
+            return;
+        }
+
         $('.side_sub_menu').not(subMenu).slideUp();
         subMenu.slideToggle();
     });

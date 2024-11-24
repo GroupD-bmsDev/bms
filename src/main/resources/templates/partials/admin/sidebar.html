@@ -10,7 +10,7 @@
                             <span class="sidebar_user_name" th:text="${member.name}"></span>
                             <span class="sidebar_user_grade" th:text="${member.teamCode + ' ' + member.jobPosition}"></span>
                             <input type="hidden" id="userid" th:value="${member.userid}" />
-                            <input type="hidden" id="loginSiteKey" th:value="${member.siteKey}" />
+                            <input type="hidden" id="siteKey" th:value="${member.siteKey}" />
                         </div>
                         <div class="sidebar_user_right">
                             <a href="#" class="user_info_btn" id="member_info"><img src="/img/sidebar_user_right01.svg" alt="회원정보" /></a>

@@ -10,7 +10,7 @@
                             <span class="sidebar_user_name" th:text="${member.name}"></span>
                             <span class="sidebar_user_grade" th:text="${member.teamCode + ' ' + member.jobPosition}"></span>
                             <input type="hidden" id="userid" th:value="${member.userid}" />
-                            <input type="hidden" id="loginSiteKey" th:value="${member.siteKey}" />
+                            <input type="hidden" id="siteKey" th:value="${member.siteKey}" />
                         </div>
                         <div class="sidebar_user_right">
                             <a href="#" class="user_info_btn" id="member_info"><img src="/img/sidebar_user_right01.svg" alt="회원정보" /></a>
@@ -59,9 +59,9 @@
                             <li><a href="/admin/ina/document_management">문서관리</a></li>
                         </ul>
                     </li>
-                    <li class="side_menu05">
+                    <!-- <li class="side_menu05">
                         <a id="side_cec" href="/cec/calendar"><img src="/img/side_menu05.svg" alt="캘린더" />캘린더</a>
-                    </li>
+                    </li> -->
                     <li class="side_menu06">
                         <a id="side_inb" href="#none"><img src="/img/side_menu06.svg" alt="사내 게시판" />사내 게시판</a>
                         <ul class="side_sub_menu">
