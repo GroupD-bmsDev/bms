@@ -4,6 +4,8 @@ import com.groupd.bms.service.CommonService;
 import com.groupd.bms.service.EnterpriseService;
 import com.groupd.bms.util.StringUtil;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,7 @@ import java.util.UUID;
  * CustomerBoardController
  * 고객지원 게시판 컨트롤러
  */
+@Slf4j
 @Controller
 @RequestMapping("enterprise/csf")
 public class CustomerBoardController extends BaseController{
@@ -429,6 +432,30 @@ public class CustomerBoardController extends BaseController{
         else
             return ResponseEntity.status(500).build();
 
+    }
+
+    /*
+     * 유지보수 게시판 상세 페이지
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/maintenance_view", method = { RequestMethod.POST, RequestMethod.GET })
+    public String maintenance_view(HttpServletRequest request, Model model) {
+
+        log.info("!!!!!!!!!!!"+request.getParameter("seq"));
+        //HashMap<String, Object> registrationMap = setRequest(request);
+
+        
+
+        /**
+         * 게시판 구분 값을 가져온다.
+         */
+        List<Map<String, Object>> taskTypeList = commonService.codeMgtViewList("LIST", "taskType", "","");
+        model.addAttribute("taskTypeList", taskTypeList);
+
+
+        return "enterprise/csf/maintenance_view";
     }
 
 }

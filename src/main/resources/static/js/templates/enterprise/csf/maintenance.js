@@ -6,10 +6,26 @@ $(document).ready(function () {
 
     // 유지보수 요청 버튼 클릭 이벤트
     $('body').on('click', 'tr', function() {
-        var sitekey = $(this).data('user-sitekey');
-        alert(sitekey);
+        var seq = $(this).data('seq');
+        //alert("seq :" , seq);
+
+        showDetail(seq);
     });
 
+    $('.main_board_state>span').click(function () {
+        $('.main_board_state>span').removeClass('active');
+        $(this).addClass('active');
+    });
+    $('.main_board_category>span').click(function () {
+        $('.main_board_category>span').removeClass('active');
+        $(this).addClass('active');
+    });
+    $('.main_board_wrstate').click(function () {
+        $(this).children('.state_select').slideToggle(100);
+    });
+    $('.main_board_wrcategory').click(function () {
+        $(this).children('.category_select').slideToggle(100);
+    });
 });
 
 
@@ -119,7 +135,7 @@ $(document).ready(function () {
         "createdRow": function(row, data, dataIndex) {
             console.log(data);
             // 행에 userId 값을 data 속성으로 추가
-            $(row).attr('data-sitekey', data.sitekey);
+            $(row).attr('RowNum', data.RowNum);
         },
         "initComplete": function(settings, json) {
             updateCustomPagination(settings);
@@ -148,6 +164,25 @@ $(document).ready(function () {
 
 }
 
+function showDetail(seq) {
+    event.preventDefault(); 
+    
+    var seq = $(this).attr('seq');
+
+    var form = $('<form>', {
+        method: 'POST',
+        action: '/enterprise/csf/maintenance_view'
+    });
+
+    form.append($('<input>', {
+        type: 'hidden',
+        name: 'searchVal',
+        value: seq
+    }));
+
+    $('body').append(form);
+    form.submit();
+}
 /**
  * ajax  완료 후, 넘버링 데이타를 표시한다.
  * @param {} settings 
