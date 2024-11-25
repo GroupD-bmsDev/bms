@@ -13,7 +13,7 @@
                         <div class="main_content_info">
                             <span class="main_content_info_today">2024. 06. 20 (목)</span>
                             <ul class="main_content_list">
-                                <li class="main_content_list01">
+                                <!-- <li class="main_content_list01">
                                     <span>오늘마감</span>
                                     <div class="main_content_list01_con"><span>2</span>건</div>
                                 </li>
@@ -28,15 +28,16 @@
                                 <li class="main_content_list04">
                                     계약건수 (월)
                                     <div class="main_content_list04_con"><span>12</span>건</div>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
                         <div class="main_content_right">
                             <div class="main_commute">
                                 <div class="main_commute_left">
-                                    <h3>서울스마트치과</h3>
+                                    <h3 th:text=${member.siteName}></h3>
                                     <div class="main_commute_line"></div>
-                                    <p>장호찬<span>실장</span></p>
+                                    <p th:text="${member.name}"></p>
+                                    <p><span th:text="${member.codeName}"></span></p>
                                 </div>
                                 <div class="main_commute_right">
                                     <p>그룹디 전사 일정<span>4</span></p>
@@ -48,20 +49,29 @@
                     <div class="main_board sub_center">
                         <div class="main_board_title">
                             <h2>유지보수 게시판</h2>
-                            <a href="/csf/maintenance"><img src="/img/main_plus.svg" alt="플러스" /></a>
+                            <a href="/enterprise/csf/maintenance"><img src="/img/main_plus.svg" alt="플러스" /></a>
                         </div>
                         <div class="main_board_menu">
                             <div class="main_board_state">
-                                <span class="active state_receive">접수</span>
-                                <span class="state_check">확인</span>
-                                <span class="state_progress">진행</span>
-                                <span class="state_complete">완료</span>
-                                <span class="state_other">기타</span>
-                                <span class="state_hold">보류</span>
+                                <span class="state_receive" data-state="RECV">접수</span>
+                                <!-- <span class="active state_receive" data-state="RECV">접수</span> -->
+                                <span class="state_check" data-state="CONF">확인</span>
+                                <span class="state_progress" data-state="PROG">진행</span>
+                                <span class="state_complete" data-state="DONE">완료</span>
+                                <span class="state_other" data-state="OTHR">기타</span>
+                                <span class="state_hold" data-state="HOLD">보류</span>                                
                             </div>
                         </div>
+                        <form id="taskForm">
+                            <input type="hidden" id="taskStateWord" name="taskStateWord" value="">
+                            <input type="hidden" id="taskStateType" name="taskStateType" value="">
+                            <input type="hidden" id="gdDepartCodeWord" name="gdDepartCodeWord" value="">
+                            <input type="hidden" id="gdDepartCodeType" name="gdDepartCodeType" value="">
+                        </form>
                         <ul class="main_board_wrap">
-                            <li class="main_board_list main_board_list01">
+                            <!-- 게시판 List 출력부분 -->
+                            
+                            <!-- <li class="main_board_list main_board_list01">
                                 <div class="main_board_con">
                                     <span class="main_board_wrtime"><span class="main_board_new">오늘</span>17:52</span>
                                     <span class="main_board_wrcp">서울클리어치과 하남미사</span>
@@ -250,10 +260,10 @@
                                     <span class="main_board_comment">3</span>
                                     <img src="/img/main_board_file.svg" alt="파일첨부" class="main_board_file" />
                                 </div>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
-                    <span class="main_board_ext sub_center"><img src="/img/main_board_ext.svg" alt="확장" /></span>
+                    <span class="main_board_ext sub_center"><a href="/enterprise/csf/maintenance"><img src="/img/main_board_ext.svg" alt="확장" /></a></span>
                 </section>
                 <aside class="main_side main_right_side">
                     <div class="main_side_alert_wrap">

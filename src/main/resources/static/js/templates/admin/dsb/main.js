@@ -158,7 +158,7 @@ function maintanceListLoad() {
                 // 응답 데이터 반복 처리
                 response.data.forEach(function (item, index) {
                     const listClassNumber = (index + 1).toString().padStart(2, '0');
-                    const taskStateClass = taskStateClassMap[item.strTaskState] || "state_other"; // 기본값: 기타
+                    const taskStateClass = taskStateClassMap[item.strTaskState] || "state_receive"; // 기본값: 접수
                     const gdDepartCodeClass = gdDepartCodeClassMap[item.strGdDepartCode] || "cat_no"; // 기본값: 미처리
                     let fileImageHTML = ''; // 기본값은 빈 문자열
 
@@ -180,7 +180,7 @@ function maintanceListLoad() {
                             <span class="main_board_wrcp">${item.siteName || ''}</span>
                             <span class="main_board_wrname">${item.name || ''}</span>
                             <div class="main_board_box">
-                                <span class="main_board_wrstate ${taskStateClass}">${item.strTaskState || '기타'}
+                                <span class="main_board_wrstate ${taskStateClass}">${item.strTaskState || '접수'}
                                     <ul class="state_select">
                                         <li><span class="state_receive">접수</span></li>
                                         <li><span class="state_check">확인</span></li>
@@ -209,7 +209,7 @@ function maintanceListLoad() {
                             <span class="main_board_comment">${item.commentCnt || '0'}</span>
                             ${fileImageHTML} <!-- 첨부파일 이미지 부분 -->
                         </div>
-                        <span class="main_board_wkname">${item.name || ''}</span>
+                        <span class="main_board_wkname">${item.strGdUserKey}</span>
                     </li>`;
                     
                     // 생성된 <li> 항목을 ul에 추가

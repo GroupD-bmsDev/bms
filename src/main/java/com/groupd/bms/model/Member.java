@@ -46,6 +46,7 @@ public class Member implements Serializable {
     private String code;
     private String codeName;
     private String codeSeq;
+    private String siteName;
 
     // Default Constructor
     public Member() {
@@ -56,7 +57,7 @@ public class Member implements Serializable {
     String calendarType, String gender, String addr, String addrDesc, String post, String departCode, String teamCode, String jobPosition, 
     String jobTitle, String hireType, String jobStatus, String jobStartDate, String jobEndDate, String payGiveType, String bankName, 
     String marriedType, String boardUseYN, String memo, String imgBankbook, String imgFamilyRL, String imgProfile, String imgEtc, 
-    String grade, String state, String siteKey, String modifyTime, String systemtime, String hpno, String hpnoDepart, String bankAccount, String juminNo, String code, String codeName, String codeSeq) {
+    String grade, String state, String siteKey, String modifyTime, String systemtime, String hpno, String hpnoDepart, String bankAccount, String juminNo, String code, String codeName, String codeSeq, String siteName) {
         this.userid = userid;
         this.pwd = pwd;
         this.name = name;
@@ -98,6 +99,7 @@ public class Member implements Serializable {
         this.code = code;
         this.codeName = codeName;
         this.codeSeq = codeSeq;
+        this.siteName = siteName;
     }
 
     // Getters and Setters
@@ -428,6 +430,14 @@ public class Member implements Serializable {
     public void setCodeSeq(String codeSeq) {
         this.codeSeq = codeSeq;
     }
+        
+    public String getSiteName() {
+        return siteName;
+    }
+    
+    public void setSiteName(String siteName) {
+        this.siteName = siteName;
+    }    
 
     @Override
     public String toString() {
@@ -473,6 +483,7 @@ public class Member implements Serializable {
                 ", code='" + code + '\'' +
                 ", codeName='" + codeName + '\'' +
                 ", codeSeq='" + codeSeq + '\'' +
+                ", siteName='" + siteName + '\'' +
                 '}';
     }
 }
