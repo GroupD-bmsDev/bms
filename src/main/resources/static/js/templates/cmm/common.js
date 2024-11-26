@@ -128,6 +128,29 @@ function getTodayDate() {
   return `${year}-${month}-${day}`;
 }
 
+// 현재 날짜를 구하는 함수(gubun값으로, 필요로 하는 형식 추가해서 사용함)  getTodayDateDays("yyyy.mm.dd day")
+function getTodayDateDays( gubun ) {
+  
+  var retVal = "";
+
+  // 오늘 날짜 가져오기
+  var today = new Date();
+  var year = today.getFullYear();
+  var month = ('0' + (today.getMonth() + 1)).slice(-2); // 월은 0부터 시작하므로 +1
+  var date = ('0' + today.getDate()).slice(-2);
+  var day = ['일', '월', '화', '수', '목', '금', '토'][today.getDay()];
+
+  retVal = `${year}'${month}'-'${day}`;
+  if (gubun == "yyyy.mm.dd day"){
+    retVal = year + '. ' + month + '. ' + date + ' (' + day + ')'
+  } else{
+    retVal = year + '- ' + month + '- ' + date + ' (' + day + ')'
+  }
+
+  return retVal
+}
+
+
 // 두 날짜 사이의 차이를 계산하는 함수
 function calculateDuration(startDate, endDate) {
   // Convert the input strings to Date objects if they are strings

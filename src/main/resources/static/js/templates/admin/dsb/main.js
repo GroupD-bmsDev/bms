@@ -1,33 +1,4 @@
-/*
- * dsb/main.html 연동 스크립트 영역
- */
-/*
-document.addEventListener('DOMContentLoaded', function () {
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-    });
-    calendar.render();
 
-    // 텍스트를 변경하는 코드 추가
-    var daysOfWeek = [
-        { class: 'fc-day-sun', text: '일' },
-        { class: 'fc-day-mon', text: '월' },
-        { class: 'fc-day-tue', text: '화' },
-        { class: 'fc-day-wed', text: '수' },
-        { class: 'fc-day-thu', text: '목' },
-        { class: 'fc-day-fri', text: '금' },
-        { class: 'fc-day-sat', text: '토' },
-    ];
-
-    daysOfWeek.forEach(function (day) {
-        var dayElements = document.querySelectorAll('.fc-scrollgrid-section-header .' + day.class);
-        dayElements.forEach(function (element) {
-            element.innerText = day.text; // 원하는 텍스트로 변경
-        });
-    });
-});
-*/
 $(document).ready(function () {
     $('#taskStateWord').val("");    //요청상태 선택 초기화
     $('#taskStateType').val("");    //요청상태 선택 초기화
@@ -89,19 +60,6 @@ $(document).ready(function () {
     maintanceListLoad();
 
 });
-
-// 오늘 날짜 가져오기
-/*
-var today = new Date();
-var year = today.getFullYear();
-var month = ('0' + (today.getMonth() + 1)).slice(-2); // 월은 0부터 시작하므로 +1
-var date = ('0' + today.getDate()).slice(-2);
-var day = ['일', '월', '화', '수', '목', '금', '토'][today.getDay()];
-
-var formattedDate = year + '. ' + month + '. ' + date + ' (' + day + ')';
-// 텍스트를 #today 요소에 설정
-document.getElementById('today').textContent = formattedDate;
-*/
 
 // 요청상태 class
 const taskStateClassMap = {
@@ -223,7 +181,6 @@ function maintanceListLoad() {
             // 오류 처리
             console.error('Error fetching maintenance list:', error);
         }
-    });
-   
+    });   
 
 }
