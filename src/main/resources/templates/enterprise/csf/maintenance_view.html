@@ -16,7 +16,7 @@
                                 <caption>
                                     <div>
                                         <h3>서울스마트치과</h3>
-                                        <span>7월 이벤트 시안 제작 해주세요</span>
+                                        <span th:text="${maintenanceDetail.title}">7월 이벤트 시안 제작 해주세요</span>
                                     </div>
                                     <div class="board_menu_wrap">
                                         <select name="" id="">
@@ -42,7 +42,7 @@
                                         </td>
                                         <td>
                                             <div class="board_title"><img src="/img/Face.svg" alt="" />요청자</div>
-                                            <input type="text" value="장호찬 실장" />
+                                            <input type="text"  value="장호찬 실장"/>
                                         </td>
                                         <td>
                                             <div class="board_title"><img src="/img/Business.svg" alt="" />거래처명</div>
@@ -138,7 +138,7 @@
                                             </div>
                                         </div>
                                         <div class="add_box_write">
-                                            <textarea name="" class="pre">@이수은 내용들어갑니다내용들어갑니다내용들어갑니다내용들어갑니다내용들어갑니다</textarea>
+                                            <textarea name="" class="pre" th:text="${maintenanceDetail.contents}">@이수은 내용들어갑니다내용들어갑니다내용들어갑니다내용들어갑니다내용들어갑니다</textarea>
                                             <div class="file_box_write">
                                                 <div class="img_wrap">
                                                     <img src="/img/Frame 86.png" alt="" />
@@ -167,11 +167,13 @@
                         </div>
 
                         <div class="add_emp_btn_wrap">
-                            <input type="button" value="목록" class="add_board_btn" />
-                            <input type="button" value="수정" class="add_board_btn" />
-                            <input type="button" value="삭제" class="add_board_btn" />
+                            <input type="button" value="목록" class="list_board_btn" />
+                            <input type="button" value="수정" class="modify_board_btn" />
+                            <input type="button" value="삭제" class="remove_board_btn" />
                             <input type="submit" value="글쓰기" />
                         </div>
+
+                        <input type="hidden" id="maintenanceSeq" name="seq" th:value="${maintenanceDetail.seq}">
                     </form>
                 </div>
             </div>
@@ -181,6 +183,6 @@
     <!-- 유지보수  Javascript -->
     <th:block layout:fragment="customJS">
         <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-        <script src="/js/templates/admin/csf/maintenance_view.js"></script>
+        <script src="/js/templates/enterprise/csf/maintenance_view.js"></script>
     </th:block>
 </html>

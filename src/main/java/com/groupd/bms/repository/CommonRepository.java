@@ -25,5 +25,5 @@ public interface CommonRepository {
      * @return
      */
     List<Map<String, Object>> mngList_v2(Map<String, Object> params);
-    
+      
 }
