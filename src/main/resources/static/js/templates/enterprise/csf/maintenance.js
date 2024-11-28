@@ -6,8 +6,11 @@ $(document).ready(function () {
 
     // 유지보수 요청 버튼 클릭 이벤트
     $('body').on('click', 'tr', function() {
-        var seq = $(this).data('seq');
-        //alert("seq :" , seq);
+        //var seq1 = $(this).data('seq');
+        var seq = $(this).attr('seq');
+        
+       // alert("seq :" + seq);
+
 
         showDetail(seq);
     });
@@ -134,8 +137,9 @@ $(document).ready(function () {
         "dom": 'rtip', // 기본 페이징 네비게이션 컨트롤을 숨깁니다.
         "createdRow": function(row, data, dataIndex) {
             console.log(data);
+            //alert(data.seq);
             // 행에 userId 값을 data 속성으로 추가
-            $(row).attr('RowNum', data.RowNum);
+            $(row).attr('seq', data.seq);
         },
         "initComplete": function(settings, json) {
             updateCustomPagination(settings);
@@ -167,16 +171,22 @@ $(document).ready(function () {
 function showDetail(seq) {
     event.preventDefault(); 
     
-    var seq = $(this).attr('seq');
+   //alert("seq111:" + seq1);
 
     var form = $('<form>', {
         method: 'POST',
         action: '/enterprise/csf/maintenance_view'
     });
 
+    
     form.append($('<input>', {
         type: 'hidden',
         name: 'searchVal',
+        value: seq
+    }));
+    form.append($('<input>', {
+        type: 'hidden',
+        name: 'seq',
         value: seq
     }));
 

@@ -110,5 +110,6 @@ public class CommonServiceimpl implements CommonService {
         boardMap.put("etcParam", etcParam);
         return commonRepository.mngList_v2(boardMap);
     }
+   
     
 }

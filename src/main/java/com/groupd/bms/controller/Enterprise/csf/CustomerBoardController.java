@@ -1,8 +1,11 @@
 package com.groupd.bms.controller.enterprise.csf;
 
+import com.groupd.bms.service.BoardService;
 import com.groupd.bms.service.CommonService;
 import com.groupd.bms.service.EnterpriseService;
 import com.groupd.bms.util.StringUtil;
+import com.groupd.bms.util.Util;
+
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,6 +36,9 @@ public class CustomerBoardController extends BaseController{
 
     @Autowired
     private EnterpriseService enterpriseService;
+
+    @Autowired 
+    private BoardService boardService;
 
     /*
      * 프로젝트 정보 화면 페이지 
@@ -442,9 +448,8 @@ public class CustomerBoardController extends BaseController{
      */
     @RequestMapping(value = "/maintenance_view", method = { RequestMethod.POST, RequestMethod.GET })
     public String maintenance_view(HttpServletRequest request, Model model) {
-
-        log.info("!!!!!!!!!!!"+request.getParameter("seq"));
-        //HashMap<String, Object> registrationMap = setRequest(request);
+      
+        HashMap<String, Object> registrationMap = setRequest(request); 
 
         
 
@@ -455,7 +460,80 @@ public class CustomerBoardController extends BaseController{
         model.addAttribute("taskTypeList", taskTypeList);
 
 
+        HashMap<String, Object> resMap = new HashMap<String, Object>();
+
+      
+        String seq   = StringUtil.objectToString(registrationMap.get("seq"));                   //글번호 
+
+        String startDate  = StringUtil.objectToString(registrationMap.get("fr_date"));                   //시작일
+        String EndDate    = StringUtil.objectToString(registrationMap.get("to_date"));                   //종료일
+        String searchType = StringUtil.objectToString(registrationMap.get("searchType"));                //검색타입     
+        String search     = StringUtil.objectToString(registrationMap.get("search"));                    //검색어 
+        String searchType2 = StringUtil.objectToString(registrationMap.get("searchType2"));              //검색타입     
+        String search2     = StringUtil.objectToString(registrationMap.get("search2"));                  //검색어         
+        String userId     = StringUtil.objectToString(registrationMap.get("userId"));                    //사용자ID
+        String etcParam   = StringUtil.objectToString(registrationMap.get("siteKey"));                   //업체키
+
+        int draw = Util.parseIntOrDefault(request.getParameter("draw"));                        //페이징
+        int start = Util.parseIntOrDefault(request.getParameter("start"));                      //시작
+        int length = Util.parseIntOrDefault(request.getParameter("length"), 10);    //갯수     
+        
+        // 페이지 번호 계산
+        int page = start / length + 1;
+       
+       // 데이터 가져오기
+      // List<Map<String, Object>> maintenanceDetail = commonService.mngList_v2("taskReqBoard_Out_Detail", userId, String.valueOf(page), String.valueOf(length), startDate.replaceAll("-", ""),  endDate.replaceAll("-", ""), seq, searchType, search, etcParam);
+       List<Map<String, Object>> maintenanceList = commonService.mngList_v2("taskReqBoard_Out_Detail", userId, String.valueOf(page), String.valueOf(length), startDate.replaceAll("-", ""), EndDate.replaceAll("-", ""), searchType, seq, etcParam, searchType2, search2);
+
+       log.info("maintenanceDetail : {}", maintenanceList.get(0));
+       model.addAttribute("maintenanceDetail", maintenanceList.get(0));
+
+
+       model.addAttribute("seq", seq);
+
+
         return "enterprise/csf/maintenance_view";
+    }
+
+
+
+    /*
+     * 유지보수 게시판 삭제
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/removeMaintenance", method = RequestMethod.POST)
+    @ResponseBody  // JSON 응답을 반환
+    public Map<String, Object> deleteMaintenance(@RequestParam("seq") String seq) {
+        Map<String, Object> response = new HashMap<>();
+        
+        try {
+
+            log.info("seq : " + seq);
+            // // seq 값을 Integer로 변환
+            // int maintenanceSeq = Integer.parseInt(seq);
+            
+
+
+            // // 글 삭제 처리
+            //boardService.boardRegModify(maintenanceSeq);
+            
+            // if (isDeleted) {
+            //     response.put("success", true);
+            //     response.put("message", "삭제가 완료되었습니다.");
+            // } else {
+            //     response.put("success", false);
+            //     response.put("message", "삭제 실패. 글을 찾을 수 없습니다.");
+            // }
+        } catch (Exception e) {
+            // 예외 처리
+            response.put("success", false);
+            response.put("message", "오류가 발생했습니다.");
+            e.printStackTrace();
+        }
+
+        return response;  // JSON 형태로 응답 반환
     }
 
 }

@@ -39,6 +39,7 @@ public interface CommonService {
      */
     public List<Map<String, Object>> mngList(String gubun,String userID, String pageno, String pagesize,String Sdate,String Edate,String searchGubun, String searchVal, String etcParam);
 
+    
     /**
      * 공통 게시판 정보를 조회한다.(파라미터2개 추가버전)
      * @param String gubun,String userID, String pageno, String pagesize,String Sdate,String Edate,String searchGubun, String searchVal, String etcParam
@@ -52,4 +53,6 @@ public interface CommonService {
      * @return HashMap<String, Object>
      */
     public List<Map<String, Object>> mngList_v2(String gubun,String userID, String pageno, String pagesize,String Sdate,String Edate,String searchGubun, String searchVal, String etcParam, String searchGubun2, String searchVal2);    
+
+   
 } 
