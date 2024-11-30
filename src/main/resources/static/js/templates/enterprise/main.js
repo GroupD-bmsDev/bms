@@ -186,9 +186,7 @@ function maintanceListLoad() {
 
 function showDetail(seq) {
     event.preventDefault(); 
-    
-    var seq = $(this).attr('seq');
-
+     
     var form = $('<form>', {
         method: 'POST',
         action: '/enterprise/csf/maintenance_view'
@@ -196,7 +194,7 @@ function showDetail(seq) {
 
     form.append($('<input>', {
         type: 'hidden',
-        name: 'searchVal',
+        name: 'seq',
         value: seq
     }));
 
