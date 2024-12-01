@@ -12,35 +12,42 @@
                 <div class="mt_board">
                     <div class="main_board_menu">
                         <div class="main_board_state">
-                            <span class="active state_receive">접수</span>
-                            <span class="state_check">확인</span>
-                            <span class="state_progress">진행</span>
-                            <span class="state_complete">완료</span>
-                            <span class="state_other">기타</span>
-                            <span class="state_hold">보류</span>
+                            <span class="" data-state="">전체</span>
+                            <span class="state_receive" data-state="RECV">접수</span>
+                            <span class="state_check" data-state="CONF">확인</span>
+                            <span class="state_progress" data-state="PROG">진행</span>
+                            <span class="state_complete" data-state="DONE">완료</span>
+                            <span class="state_other" data-state="OTHR">기타</span>
+                            <span class="state_hold" data-state="HOLD">보류</span> 
                         </div>
                         <div class="main_board_category">
-                            <span class="cat_mk">마케팅 / 기획<span class="category_count">10</span></span>
-                            <span class="cat_ec">광고관리<span class="category_count">10</span></span>
-                            <span class="cat_dg active">디자인<span class="category_count">10</span></span>
-                            <span class="cat_pb">퍼블리싱</span>
-                            <span class="cat_bd">영상</span>
-                            <span class="cat_cp">관리</span>
-                            <span class="cat_fn">재무</span>
+                            <span class="" data-state="">전체</span>
+                            <span class="cat_mk" data-state="MARKETING">마케팅</span>
+                            <span class="cat_mk" data-state="MARKETING">기획</span>
+                            <span class="cat_ec" data-state="AD_MNG">광고관리</span>
+                            <span class="cat_dg" data-state="DESIGN">디자인</span>
+                            <!-- <span class="cat_dg active">디자인<span class="category_count">10</span></span> -->
+                            <span class="cat_pb" data-state="DESIGN">퍼블리싱</span>
+                            <span class="cat_bd" data-state="MEDIA">영상</span>
+                            <span class="cat_cp" data-state="MANAGE">관리</span>
+                            <span class="cat_fn" data-state="FINANCE">재무</span>
                         </div>
                     </div>
                     <form action="" class="mt_board_top">
                         <div class="mt_board_date">
-                            <input type="date" name="" id="fr_date" class="fr_date" value="2024-07-15" />
+                            <input type="date" name="fr_date" id="fr_date" th:value="${fr_date}" class="fr_date" size="10" maxlength="10" />
                             <span>~</span>
-                            <input type="date" name="" id="to_date" class="to_date" value="2024-07-15" />
+                            <input type="date" name="to_date" th:value="${to_date}" id="to_date" class="to_date" size="10" maxlength="10" />
                         </div>
-                        <div class="mt_board_search">
-                            <select name="sfl" id="sch_sort" class="search_sort">
-                                <option value="mt_bn">업체명</option>
-                                <option value="mt_wn">작성자</option>
+                        <div class="mt_board_search">                            
+                            <select name="searchType" id="searchType"  th:value="${searchType}" class="search_sort">
+                                <option value="selSiteName" th:selected="${searchType == 'selSiteName'}">업체명</option>
+                                <option value="selName" th:selected="${searchType == 'selName'}">작성자</option>
                             </select>
-                            <label for="sch_word"><input type="text" name="stx" size="20" value="" id="sch_word" class="frm_input" /> <input type="submit" value="검색" class="sch_btn" /></label>
+                            <label for="sch_word">
+                                <input type="text" name="sch_word"  id="sch_word" th:value="${sch_word}" class="frm_input" size="20" maxlength="30" />
+                                <input type="button" id="searchButton" value="검색" class="sch_btn" />
+                            </label>
                         </div>
                         <div class="mt_board_btn">
                             <button class="mt_board_refrash"><img src="/img/bm_board_refrash.svg" alt="새로고침" /></button>
@@ -48,8 +55,12 @@
                         </div>
                         <!-- 업체측에서 글쓰기 -->
                         <!-- <a href="#" class="mt_reg">글쓰기</a> -->
+                        <input type="hidden" id="taskStateType" name="taskStateType" value="">
+                        <input type="hidden" id="taskStateWord" name="taskStateWord" value="">
+                        <input type="hidden" id="gdDepartCodeType" name="gdDepartCodeType" value="">
+                        <input type="hidden" id="gdDepartCodeWord" name="gdDepartCodeWord" value="">
                     </form>
-                    <table class="mt_board_table" cellspacing="0">
+                    <table class="mt_board_table" cellspacing="0" id="maintenanceTable">
                         <thead class="mt_board_th">
                             <tr>
                                 <th>날짜</th>
@@ -63,7 +74,9 @@
                             </tr>
                         </thead>
                         <tbody class="mt_board_td">
-                            <tr>
+
+                            <!-- 개발완료 후 삭제예정
+                             <tr>
                                 <td class="mt_wr_wdate"><span class="list_today">오늘</span>17:52</td>
                                 <td class="mt_wr_fday">2024.07.15</td>
                                 <td class="mt_wr_cp"><a href="/admin/csf/maintenance_view">안양바른플러스치과</a></td>
@@ -185,11 +198,12 @@
                                     <img src="/img/main_board_file.svg" alt="파일첨부" class="main_board_file" />
                                 </td>
                                 <td class="mt_wr_wkname">이슬</td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                     <nav class="pg_wrap">
-                        <span class="pg">
+                        <span class="pg" id="customPagination"></span>
+                        <!-- <span class="pg">
                             <a href="#" class="pg_page pg_start">처음</a>
                             <a href="#" class="pg_page pg_prev">이전</a>
                             <strong class="pg_current">1</strong>
@@ -204,7 +218,7 @@
                             <a href="#" class="pg_page">10</a>
                             <a href="#" class="pg_page pg_next">다음</a>
                             <a href="#" class="pg_page pg_end">맨끝</a>
-                        </span>
+                        </span> -->
                     </nav>
                 </div>
             </div>
