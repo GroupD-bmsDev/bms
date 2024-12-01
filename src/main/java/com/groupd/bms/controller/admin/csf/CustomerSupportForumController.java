@@ -488,6 +488,8 @@ public class CustomerSupportForumController extends BaseController{
         String search2     = StringUtil.objectToString(registrationMap.get("search2"));                  //검색어         
         String userId     = StringUtil.objectToString(registrationMap.get("userId"));                    //사용자ID
         String etcParam   = StringUtil.objectToString(registrationMap.get("siteKey"));                   //업체키
+        String searchType3 = StringUtil.objectToString(registrationMap.get("searchType3"));              //검색타입     
+        String search3     = StringUtil.objectToString(registrationMap.get("search3"));                  //검색어    
 
         int draw = Util.parseIntOrDefault(request.getParameter("draw"));                        //페이징
         int start = Util.parseIntOrDefault(request.getParameter("start"));                      //시작
@@ -496,9 +498,9 @@ public class CustomerSupportForumController extends BaseController{
         // 페이지 번호 계산
         int page = start / length + 1;
         // 전체 레코드 수 가져오기
-        int totalRecords = Integer.parseInt(setPagination(commonService.mng_v2("taskReqBoard_Out_ListCnt", userId, String.valueOf(page), String.valueOf(length), startDate.replaceAll("-", ""), EndDate.replaceAll("-", ""), searchType, search, etcParam, searchType2, search2)));
+        int totalRecords = Integer.parseInt(setPagination(commonService.mng_v2("taskReqBoard_Out_ListCnt", userId, String.valueOf(page), String.valueOf(length), startDate.replaceAll("-", ""), EndDate.replaceAll("-", ""), searchType, search, etcParam, searchType2, search2, searchType3, search3)));
         // 데이터 가져오기
-        List<Map<String, Object>> maintenanceList = commonService.mngList_v2("taskReqBoard_Out_List", userId, String.valueOf(page), String.valueOf(length), startDate.replaceAll("-", ""), EndDate.replaceAll("-", ""), searchType, search, etcParam, searchType2, search2);
+        List<Map<String, Object>> maintenanceList = commonService.mngList_v2("taskReqBoard_Out_List", userId, String.valueOf(page), String.valueOf(length), startDate.replaceAll("-", ""), EndDate.replaceAll("-", ""), searchType, search, etcParam, searchType2, search2, searchType3, search3);
 
         resMap.put("draw", draw);
         resMap.put("recordsTotal", totalRecords);

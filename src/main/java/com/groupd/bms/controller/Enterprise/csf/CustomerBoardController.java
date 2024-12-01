@@ -483,7 +483,7 @@ public class CustomerBoardController extends BaseController{
        
        // 데이터 가져오기
       // List<Map<String, Object>> maintenanceDetail = commonService.mngList_v2("taskReqBoard_Out_Detail", userId, String.valueOf(page), String.valueOf(length), startDate.replaceAll("-", ""),  endDate.replaceAll("-", ""), seq, searchType, search, etcParam);
-       List<Map<String, Object>> maintenanceList = commonService.mngList_v2("taskReqBoard_Out_Detail", userId, String.valueOf(page), String.valueOf(length), startDate.replaceAll("-", ""), EndDate.replaceAll("-", ""), searchType, seq, etcParam, searchType2, search2);
+       List<Map<String, Object>> maintenanceList = commonService.mngList_v2("taskReqBoard_Out_Detail", userId, String.valueOf(page), String.valueOf(length), startDate.replaceAll("-", ""), EndDate.replaceAll("-", ""), searchType, seq, etcParam, searchType2, search2, "", "");
 
        log.info("maintenanceDetail : {}", maintenanceList.get(0));
        model.addAttribute("maintenanceDetail", maintenanceList.get(0));

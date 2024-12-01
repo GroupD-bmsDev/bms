@@ -83,9 +83,9 @@ public class CommonServiceimpl implements CommonService {
      * 공통 코드 정보를 조회한다.(파라미터2개 추가버전)
      */
     @Override
-    public Map<String, Object> mng_v2(String gubun,String userID, String pageno, String pagesize,String Sdate,String Edate,String searchGubun, String searchVal, String etcParam,String searchGubun2, String searchVal2) {
+    public Map<String, Object> mng_v2(String gubun,String userID, String pageno, String pagesize,String Sdate,String Edate,String searchGubun, String searchVal, String etcParam,String searchGubun2, String searchVal2,String searchGubun3, String searchVal3) {
 
-        List<Map<String, Object>> mng2 = mngList_v2(gubun, userID, pageno, pagesize, Sdate, Edate, searchGubun, searchVal, etcParam, searchGubun2, searchVal2);
+        List<Map<String, Object>> mng2 = mngList_v2(gubun, userID, pageno, pagesize, Sdate, Edate, searchGubun, searchVal, etcParam, searchGubun2, searchVal2, searchGubun3, searchVal3);
         if(mng2.size() > 0) return mng2.get(0);
         else return new HashMap<String, Object>();
     }
@@ -94,7 +94,7 @@ public class CommonServiceimpl implements CommonService {
      * 공통 게시판 리스트 정보를 조회한다.(파라미터2개 추가버전)
      */
     @Override
-    public List<Map<String, Object>> mngList_v2(String gubun,String userID, String pageno, String pagesize,String Sdate,String Edate,String searchGubun, String searchVal, String etcParam,String searchGubun2, String searchVal2) {
+    public List<Map<String, Object>> mngList_v2(String gubun,String userID, String pageno, String pagesize,String Sdate,String Edate,String searchGubun, String searchVal, String etcParam,String searchGubun2, String searchVal2,String searchGubun3, String searchVal3) {
 
         HashMap<String, Object> boardMap = new HashMap<>();
         boardMap.put("gubun", gubun);
@@ -108,6 +108,8 @@ public class CommonServiceimpl implements CommonService {
         boardMap.put("searchGubun2", searchGubun2);
         boardMap.put("searchVal2", searchVal2);
         boardMap.put("etcParam", etcParam);
+        boardMap.put("searchGubun3", searchGubun3);
+        boardMap.put("searchVal3", searchVal3);
         return commonRepository.mngList_v2(boardMap);
     }
    

@@ -45,14 +45,14 @@ public interface CommonService {
      * @param String gubun,String userID, String pageno, String pagesize,String Sdate,String Edate,String searchGubun, String searchVal, String etcParam
      * @return HashMap<String, Object>
      */
-    public Map<String, Object> mng_v2(String gubun,String userID, String pageno, String pagesize,String Sdate,String Edate,String searchGubun, String searchVal, String etcParam, String searchGubun2, String searchVal2);
+    public Map<String, Object> mng_v2(String gubun,String userID, String pageno, String pagesize,String Sdate,String Edate,String searchGubun, String searchVal, String etcParam, String searchGubun2, String searchVal2, String searchGubun3, String searchVal3);
 
     /**
      * 공통 게시판 리스트 정보를 조회한다.(파라미터2개 추가버전)
      * @param String gubun,String userID, String pageno, String pagesize,String Sdate,String Edate,String searchGubun, String searchVal, String etcParam
      * @return HashMap<String, Object>
      */
-    public List<Map<String, Object>> mngList_v2(String gubun,String userID, String pageno, String pagesize,String Sdate,String Edate,String searchGubun, String searchVal, String etcParam, String searchGubun2, String searchVal2);    
+    public List<Map<String, Object>> mngList_v2(String gubun,String userID, String pageno, String pagesize,String Sdate,String Edate,String searchGubun, String searchVal, String etcParam, String searchGubun2, String searchVal2, String searchGubun3, String searchVal3);    
 
    
 } 
