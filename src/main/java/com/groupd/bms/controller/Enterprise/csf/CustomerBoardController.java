@@ -369,8 +369,11 @@ public class CustomerBoardController extends BaseController{
         HashMap<String, Object> registrationMap = setRequest(request);
         HashMap<String, Object> resMap = new HashMap<String, Object>();
 
-        String startDate  = StringUtil.objectToString(registrationMap.get("fr_date"));                   //시작일
-        String EndDate    = StringUtil.objectToString(registrationMap.get("to_date"));                   //종료일
+        //String startDate  = StringUtil.objectToString(registrationMap.get("fr_date"));                   //시작일
+        //String EndDate    = StringUtil.objectToString(registrationMap.get("to_date"));                   //종료일
+
+        String startDate  = "2024-01-01";                   //시작일
+        String EndDate    = "2024-12-31";                   //종료일
         String searchType = StringUtil.objectToString(registrationMap.get("searchType"));                //검색타입     
         String search     = StringUtil.objectToString(registrationMap.get("search"));                    //검색어 
         String userId     = StringUtil.objectToString(registrationMap.get("userId"));                    //사용자ID
@@ -450,9 +453,6 @@ public class CustomerBoardController extends BaseController{
     public String maintenance_view(HttpServletRequest request, Model model) {
       
         HashMap<String, Object> registrationMap = setRequest(request); 
-
-        
-
         /**
          * 게시판 구분 값을 가져온다.
          */
@@ -495,8 +495,6 @@ public class CustomerBoardController extends BaseController{
         return "enterprise/csf/maintenance_view";
     }
 
-
-
     /*
      * 유지보수 게시판 삭제
      * @param request
@@ -504,36 +502,74 @@ public class CustomerBoardController extends BaseController{
      * @return
      */
     @RequestMapping(value = "/removeMaintenance", method = RequestMethod.POST)
-    @ResponseBody  // JSON 응답을 반환
-    public Map<String, Object> deleteMaintenance(@RequestParam("seq") String seq) {
-        Map<String, Object> response = new HashMap<>();
-        
-        try {
+    public ResponseEntity<?> deleteMaintenance(HttpServletRequest request) {
+       
+        HashMap<String, Object> RegistrationMap = setRequest(request);
 
-            log.info("seq : " + seq);
-            // // seq 값을 Integer로 변환
-            // int maintenanceSeq = Integer.parseInt(seq);
-            
+        RegistrationMap.put("gubun", "DEL");
+        RegistrationMap.put("trbSeq", request.getParameter("seq"));
 
-
-            // // 글 삭제 처리
-            //boardService.boardRegModify(maintenanceSeq);
-            
-            // if (isDeleted) {
-            //     response.put("success", true);
-            //     response.put("message", "삭제가 완료되었습니다.");
-            // } else {
-            //     response.put("success", false);
-            //     response.put("message", "삭제 실패. 글을 찾을 수 없습니다.");
-            // }
-        } catch (Exception e) {
-            // 예외 처리
-            response.put("success", false);
-            response.put("message", "오류가 발생했습니다.");
-            e.printStackTrace();
+        //유지보수 게시판 삭제
+        enterpriseService.setMaintenancewrite(RegistrationMap);
+        if (RegistrationMap != null){
+            return ResponseEntity.ok(RegistrationMap);
+        }else{
+            return ResponseEntity.status(500).build();
         }
 
-        return response;  // JSON 형태로 응답 반환
+    }
+
+     /*
+     * 유지보수 게시판 수정  페이지
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/maintenance_modify", method = { RequestMethod.POST, RequestMethod.GET })
+    public String maintenance_modify(HttpServletRequest request, Model model) {
+      
+        log.info("move modify!!");
+
+        HashMap<String, Object> registrationMap = setRequest(request); 
+        
+        /**
+         * 게시판 구분 값을 가져온다.
+         */
+        List<Map<String, Object>> taskTypeList = commonService.codeMgtViewList("LIST", "taskType", "","");
+        model.addAttribute("taskTypeList", taskTypeList);
+
+
+        HashMap<String, Object> resMap = new HashMap<String, Object>();
+
+      
+        String seq   = StringUtil.objectToString(registrationMap.get("seq"));                   //글번호 
+
+        String startDate  = StringUtil.objectToString(registrationMap.get("fr_date"));                   //시작일
+        String EndDate    = StringUtil.objectToString(registrationMap.get("to_date"));                   //종료일
+        String searchType = StringUtil.objectToString(registrationMap.get("searchType"));                //검색타입     
+        String search     = StringUtil.objectToString(registrationMap.get("search"));                    //검색어 
+        String searchType2 = StringUtil.objectToString(registrationMap.get("searchType2"));              //검색타입     
+        String search2     = StringUtil.objectToString(registrationMap.get("search2"));                  //검색어         
+        String userId     = StringUtil.objectToString(registrationMap.get("userId"));                    //사용자ID
+        String etcParam   = StringUtil.objectToString(registrationMap.get("siteKey"));                   //업체키
+
+        int draw = Util.parseIntOrDefault(request.getParameter("draw"));                        //페이징
+        int start = Util.parseIntOrDefault(request.getParameter("start"));                      //시작
+        int length = Util.parseIntOrDefault(request.getParameter("length"), 10);    //갯수     
+        
+        // 페이지 번호 계산
+        int page = start / length + 1;
+       
+       // 데이터 가져오기
+       List<Map<String, Object>> maintenanceList = commonService.mngList_v2("taskReqBoard_Out_Detail", userId, String.valueOf(page), String.valueOf(length), startDate.replaceAll("-", ""), EndDate.replaceAll("-", ""), searchType, seq, etcParam, searchType2, search2, "", "");
+
+       model.addAttribute("maintenanceDetail", maintenanceList.get(0));
+
+
+       model.addAttribute("seq", seq);
+       model.addAttribute("modify", "Y"); 
+
+       return "enterprise/csf/maintenance_modify";
     }
 
 }

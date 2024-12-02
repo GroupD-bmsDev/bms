@@ -2,7 +2,7 @@
  * /enterprise/csf/maintenance_view.html 연동 스크립트 영역
  */
 $(document).ready(function () {
-
+    
     
     var seqValue = $('#maintenanceSeq').val();
     console.log("seqValue:"+seqValue);
@@ -14,11 +14,43 @@ $(document).ready(function () {
 
    // 버튼 클릭 이벤트
    $(".modify_board_btn").click(function () {
+    var form = $('#empForm')[0];
+    var formData = new FormData(form);
+ 
+    $.ajax({
+        type: 'post',
+        url: '/enterprise/csf/maintenance/maintenance_modify',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+
+            alert(data);
+            // if (data.retVal == '0') {
+                
+            //     var corrections = $('#corrections').val(); // 이미지 초기화
+
+            //     if (corrections != '') alert('수정이 완료되었습니다.'); 
+            //     else alert('등록이 완료되었습니다.');
+                
+            //     location.href = '/enterprise/csf/maintenance';
+
+            // } else {
+            //     alert('등록에 실패했습니다. 관리자에게 문의하세요.');
+            // }
+        },
+    });
     
-  });
+
+   });
 
   // 삭제 버튼 클릭 이벤트
   $(".remove_board_btn").click(function () {
+       
+        var form = $('#empForm')[0];
+        var formData = new FormData(form);
+
+        console.log(formData);
         // seq 값이 있을 경우에만 요청
         if (seqValue) {
             // 삭제 요청을 보낼지 확인하는 다이얼로그 (선택사항)
@@ -28,12 +60,13 @@ $(document).ready(function () {
                 $.ajax({
                     url: '/enterprise/csf/removeMaintenance',  // 글 삭제 요청 URL
                     method: 'POST',             // HTTP 메소드 (POST)
-                    data: {
-                        seq: seqValue          // seq를 파라미터로 전달
-                    },
-                    success: function(response) {
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+                        console.log(data);
                         // 삭제 성공 시 처리 (예: 알림 메시지, 페이지 리다이렉션 등)
-                        if (response.success) {
+                        if (data.retVal==0) {
                             alert("글이 삭제되었습니다.");
                             window.location.href = "/enterprise/csf/maintenance";  // 삭제 후 목록 페이지로 이동
                         } else {
