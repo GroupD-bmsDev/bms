@@ -410,7 +410,30 @@ public class CustomerBoardController extends BaseController{
         //HashMap<String, Object> registrationMap = setRequest(request);
 
         
+        /**
+         * 게시판 구분 값을 가져온다.
+         */
+        List<Map<String, Object>> taskTypeList = commonService.codeMgtViewList("LIST", "taskType", "","");
+        model.addAttribute("taskTypeList", taskTypeList);
+      
 
+        return "enterprise/csf/maintenance_write";
+    }
+
+
+    /*
+     * 유지보수 게시판 수정 페이지
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/maintenance_modify", method = { RequestMethod.POST, RequestMethod.GET })
+    public String maintenance_modiy(HttpServletRequest request, Model model) {
+
+        //HashMap<String, Object> registrationMap = setRequest(request);
+
+       
+        HashMap<String, Object> registrationMap = setRequest(request); 
         /**
          * 게시판 구분 값을 가져온다.
          */
@@ -418,7 +441,40 @@ public class CustomerBoardController extends BaseController{
         model.addAttribute("taskTypeList", taskTypeList);
 
 
-        return "enterprise/csf/maintenance_write";
+        HashMap<String, Object> resMap = new HashMap<String, Object>();
+
+    
+        String seq   = StringUtil.objectToString(registrationMap.get("seq"));                   //글번호 
+
+        String startDate  = StringUtil.objectToString(registrationMap.get("fr_date"));                   //시작일
+        String EndDate    = StringUtil.objectToString(registrationMap.get("to_date"));                   //종료일
+        String searchType = StringUtil.objectToString(registrationMap.get("searchType"));                //검색타입     
+        String search     = StringUtil.objectToString(registrationMap.get("search"));                    //검색어 
+        String searchType2 = StringUtil.objectToString(registrationMap.get("searchType2"));              //검색타입     
+        String search2     = StringUtil.objectToString(registrationMap.get("search2"));                  //검색어         
+        String userId     = StringUtil.objectToString(registrationMap.get("userId"));                    //사용자ID
+        String etcParam   = StringUtil.objectToString(registrationMap.get("siteKey"));                   //업체키
+
+        int draw = Util.parseIntOrDefault(request.getParameter("draw"));                        //페이징
+        int start = Util.parseIntOrDefault(request.getParameter("start"));                      //시작
+        int length = Util.parseIntOrDefault(request.getParameter("length"), 10);    //갯수     
+        
+        // 페이지 번호 계산
+        int page = start / length + 1;
+    
+        // 데이터 가져오기
+        // List<Map<String, Object>> maintenanceDetail = commonService.mngList_v2("taskReqBoard_Out_Detail", userId, String.valueOf(page), String.valueOf(length), startDate.replaceAll("-", ""),  endDate.replaceAll("-", ""), seq, searchType, search, etcParam);
+        List<Map<String, Object>> maintenanceList = commonService.mngList_v2("taskReqBoard_Out_Detail", userId, String.valueOf(page), String.valueOf(length), startDate.replaceAll("-", ""), EndDate.replaceAll("-", ""), searchType, seq, etcParam, searchType2, search2, "", "");
+
+        log.info("maintenanceDetail : {}", maintenanceList.get(0));
+        model.addAttribute("maintenanceDetail", maintenanceList.get(0));
+
+
+        model.addAttribute("seq", seq);
+
+      
+
+        return "enterprise/csf/maintenance_modify";
     }
 
     /**
@@ -519,57 +575,6 @@ public class CustomerBoardController extends BaseController{
 
     }
 
-     /*
-     * 유지보수 게시판 수정  페이지
-     * @param request
-     * @param model
-     * @return
-     */
-    @RequestMapping(value = "/maintenance_modify", method = { RequestMethod.POST, RequestMethod.GET })
-    public String maintenance_modify(HttpServletRequest request, Model model) {
-      
-        log.info("move modify!!");
-
-        HashMap<String, Object> registrationMap = setRequest(request); 
-        
-        /**
-         * 게시판 구분 값을 가져온다.
-         */
-        List<Map<String, Object>> taskTypeList = commonService.codeMgtViewList("LIST", "taskType", "","");
-        model.addAttribute("taskTypeList", taskTypeList);
-
-
-        HashMap<String, Object> resMap = new HashMap<String, Object>();
-
-      
-        String seq   = StringUtil.objectToString(registrationMap.get("seq"));                   //글번호 
-
-        String startDate  = StringUtil.objectToString(registrationMap.get("fr_date"));                   //시작일
-        String EndDate    = StringUtil.objectToString(registrationMap.get("to_date"));                   //종료일
-        String searchType = StringUtil.objectToString(registrationMap.get("searchType"));                //검색타입     
-        String search     = StringUtil.objectToString(registrationMap.get("search"));                    //검색어 
-        String searchType2 = StringUtil.objectToString(registrationMap.get("searchType2"));              //검색타입     
-        String search2     = StringUtil.objectToString(registrationMap.get("search2"));                  //검색어         
-        String userId     = StringUtil.objectToString(registrationMap.get("userId"));                    //사용자ID
-        String etcParam   = StringUtil.objectToString(registrationMap.get("siteKey"));                   //업체키
-
-        int draw = Util.parseIntOrDefault(request.getParameter("draw"));                        //페이징
-        int start = Util.parseIntOrDefault(request.getParameter("start"));                      //시작
-        int length = Util.parseIntOrDefault(request.getParameter("length"), 10);    //갯수     
-        
-        // 페이지 번호 계산
-        int page = start / length + 1;
-       
-       // 데이터 가져오기
-       List<Map<String, Object>> maintenanceList = commonService.mngList_v2("taskReqBoard_Out_Detail", userId, String.valueOf(page), String.valueOf(length), startDate.replaceAll("-", ""), EndDate.replaceAll("-", ""), searchType, seq, etcParam, searchType2, search2, "", "");
-
-       model.addAttribute("maintenanceDetail", maintenanceList.get(0));
-
-
-       model.addAttribute("seq", seq);
-       model.addAttribute("modify", "Y"); 
-
-       return "enterprise/csf/maintenance_modify";
-    }
+    
 
 }
