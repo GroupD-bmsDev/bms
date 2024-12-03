@@ -14,32 +14,17 @@ $(document).ready(function () {
 
    // 버튼 클릭 이벤트
    $(".modify_board_btn").click(function () {
+    $("#gubun").val("modify"); // 'modify' 값을 설정
     var form = $('#empForm')[0];
-    var formData = new FormData(form);
- 
-    $.ajax({
-        type: 'post',
-        url: '/enterprise/csf/maintenance/maintenance_modify',
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function (data) {
+    // 숨겨진 필드 추가
+    //form.append('<input type="hidden" name="gubun" value="modify">');
 
-            alert(data);
-            // if (data.retVal == '0') {
-                
-            //     var corrections = $('#corrections').val(); // 이미지 초기화
 
-            //     if (corrections != '') alert('수정이 완료되었습니다.'); 
-            //     else alert('등록이 완료되었습니다.');
-                
-            //     location.href = '/enterprise/csf/maintenance';
+    form.action = '/enterprise/csf/maintenance_modify'; // 서버 컨트롤러 URL
+    form.method = 'post'; // 요청 방식을 POST로 설정
+    form.submit(); // 폼 제출
 
-            // } else {
-            //     alert('등록에 실패했습니다. 관리자에게 문의하세요.');
-            // }
-        },
-    });
+    
     
 
    });

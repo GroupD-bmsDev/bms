@@ -2,187 +2,99 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/default}">
     <!-- 유지보수  CSS -->
     <th:block layout:fragment="customCSS">
-        <link rel="stylesheet" href="/css/admin/csf/maintenance_view.css" />
+        <link rel="stylesheet" href="/css/admin/csf/maintenance_write.css" />
     </th:block>
 
     <body>
         <div layout:fragment="content" id="content-wrapper" class="d-flex flex-column">
-            <div class="add_board_wrap">
-                <h2>유지보수 게시판</h2>
-                <div class="add_board">
-                    <form action="" id="empForm">
-                        <input type ="hidden" id="seq" th:value="${seq}">
-                        <div class="add_board_info">
-                            <table>
-                                <caption>
-                                    <div>
-                                        <h3>서울스마트치과111</h3>
-                                        <span th:text="${maintenanceDetail.title}">7월 이벤트 시안 제작 해주세요</span>
-                                    </div>
-                                    <div class="board_menu_wrap">
-                                        <select name="" id="">
-                                            <option value="선택">선택</option>
-                                            <option value="접수">접수</option>
-                                            <option value="확인">확인</option>
-                                            <option value="진행">진행</option>
-                                            <option value="완료">완료</option>
-                                            <option value="기타">기타</option>
-                                            <option value="보류">보류</option>
-                                        </select>
-                                    </div>
-                                </caption>
+            <div class="add_request_wrap">
+                <h2>글수정</h2>
+                <div class="add_reauest_board">
+                    <form action="" id="addEmpForm">
+                        <div class="add_request_info">
+                            <table cellspacing="0">
                                 <tbody>
                                     <tr>
+                                        <td class="add_request_title required_on">게시판 구분</td>
                                         <td>
-                                            <div class="board_title"><img src="/img/calendar_b.svg" alt="" style="margin-left: -2px" />의뢰일</div>
-                                            <input type="date" value="2024-04-20" style="width: 200px" />
+                                            <select id="taskType" name="taskType" data-alert="게시판 구분">
+                                                <th:block th:each="taskType : ${taskTypeList}">
+                                                    <option th:value="${taskType['code']}" th:text="${taskType['codeName']}" th:selected="${taskType.codeName == memInfo?.departCode}"></option>
+                                                </th:block>
+                                            </select>
                                         </td>
-                                        <td>
-                                            <div class="board_title"><img src="/img/calendar.svg" alt="" style="margin-left: -2px" />업무기한</div>
-                                            <input type="date" style="width: 200px" />
+                                        <td class="add_request_title">디자인 타입</td>
+                                        <td style="width: 42%">
+                                            <div class="radio_wrap">
+                                                <label> <input type="radio" value="ONLINE"  name="designType" id="ONLINEdesignType" checked />온라인 시안 </label>
+                                                <label> <input type="radio" value="OFFLINE" name="designType" id="OFFLINEdesignType" />오프라인 시안 </label>
+                                                <label> <input type="radio" value="SETTING" name="designType" id="SETTINGdesignType" />세팅 시안 </label>
+                                                <label> <input type="radio" value="WEBSITE" name="designType" id="WEBSITEdesignType" />홈페이지 </label>
+                                                <label> <input type="radio" value="OTHER"   name="designType" id="OTHERdesignType" />기타 </label>
+                                            </div>
                                         </td>
-                                        <td>
-                                            <div class="board_title"><img src="/img/Face.svg" alt="" />요청자</div>
-                                            <input type="text"  value="장호찬 실장"/>
+                                    </tr>
+                                    <tr class="add_request_per">
+                                        <td class="add_request_title required_on">필요 날짜</td>
+                                        <td colspan="3">
+                                            <div class="mt_board_date">
+                                                <input type="date" name="reqSDate" id="reqSDate" class="fr_date" value="2024-07-15" />
+                                                <span>~</span>
+                                                <input type="date" name="reqEDate" id="reqEDate" class="to_date" value="2024-07-15" />
+                                                <p>
+                                                    ※ 디자인 작업의 경우, 내부 일정과 분량에 따라 일정 조율이 필요합니다. (ex. 시안: 최소 2일~7일)<br />
+                                                    디자인 담당자가 분량 확인 후 일정 재안내드립니다. 급건의 경우, 따로 담당자에게 연락 부탁드리겠습니다.
+                                                </p>
+                                            </div>
                                         </td>
-                                        <td>
-                                            <div class="board_title"><img src="/img/Business.svg" alt="" />거래처명</div>
-                                            <input type="text" value="서울스마트치과" style="width: 200px" />
+                                    </tr>
+                                    <tr class="add_request_ch">
+                                        <td class="add_request_title">제목</td>
+                                        <td colspan="3">
+                                            <input type="text" id="title" name="title" th:value="${maintenanceDetail.title}"/>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <div class="board_title"><img src="/img/check_b.svg" alt="" />분류</div>
-                                            <input type="text" value="디자인 요청" disabled style="width: 200px; margin-left: 35px" />
-                                        </td>
-                                        <td>
-                                            <div class="board_title"><img src="/img/check.svg" alt="" />세부분류</div>
-                                            <input type="text" value="온라인 시안" style="width: 200px" />
-                                        </td>
-                                        <td colspan="2">
-                                            <div class="board_title"><img src="/img/Face.svg" alt="" />담당자</div>
-                                            <div class="ch_gr">
-                                                <div>
-                                                    <label>
-                                                        변가연<input type="checkbox" />
-                                                        <span></span>
-                                                    </label>
-                                                    <label> 성은지<input type="checkbox" disabled /> </label>
-                                                    <label> 강성진<input type="checkbox" disabled /> </label>
-                                                </div>
-                                            </div>
-                                        </td>
+                                        <td class="add_request_title">관련페이지</td>
+                                        <td colspan="3">URL<input type="text" id="relatedPageURL" name="relatedPageURL" style="width: 1044px; margin-left: 60px" /></td>
                                     </tr>
-                                    <tr class="board_file_wrap">
-                                        <td colspan="4">
-                                            <div class="file_list_wrap">
-                                                <div class="board_title">첨부파일</div>
-                                                <ul>
-                                                    <li>
-                                                        <span>임상 알집파일.zip</span>
-                                                    </li>
-                                                    <li>
-                                                        <span>임상 이미지01.jpg</span>
-                                                    </li>
-                                                    <li>
-                                                        <span>임상 이미지02.jpg</span>
-                                                    </li>
-                                                    <li>
-                                                        <span>임상 이미지03.jpg</span>
-                                                    </li>
-                                                    <li>
-                                                        <span>임상 이미지04.jpg</span>
-                                                    </li>
-                                                </ul>
-                                                <span>+2</span>
+                                    <!-- <tr>
+                                        <td class="add_request_title">접수상태</td>
+                                        <td colspan="3">
+                                            <div class="radio_wrap">
+                                                <label> <input type="radio" value="기타" name="design_con" checked />기타 </label>
+                                                <label> <input type="radio" value="접수" name="design_con" />접수 </label>
                                             </div>
                                         </td>
-                                        <td>
-                                            <button type="button"><img src="/img/File download.svg" alt="" />한번에 내려받기</button>
+                                    </tr> -->
+                                    <tr>
+                                        <td colspan="4" style="padding: 18px 22px; border: none">
+                                            <textarea name="contents" id="contents"></textarea>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <div class="write_wrap">
-                                <div class="write_info">
-                                    <ul>
-                                        <li>
-                                            <img src="/img/link.svg" alt="url" />
-                                            링크
-                                            <input type="text" class="view_reference" placeholder="레퍼런스 링크" style="margin-left: 45px" />
-                                        </li>
-                                        <!-- <li>
-                                            요청자 연락처
-                                            <input type="tel" placeholder="010-1234-5678" />
-                                        </li>
-                                        <li>
-                                            요청자 메일
-                                            <input type="email" placeholder="dental12@naver.com" />
-                                        </li> -->
-
-                                        
-                                    </ul>
-                                    <ul>
-                                        <li>
-
-                                            <span th:text="${maintenanceDetail.contents}"></span>
-                                        </li>
-                                    </ul>
+                        </div>
+                        <div class="add_request_file">
+                            <div class="add_request_title">첨부파일</div>
+                            <div class="add_bm_con">
+                                <div>
+                                    <input type="file" name="" id="bm_file01" multiple />
+                                    <label class="bm_file_btn" for="bm_file01">파일선택</label>
+                                    <span class="bm_file_text">선택된 파일이 없습니다.</span>
                                 </div>
-                                <div class="write_box"></div>
-                                <div class="write_add_box">
-                                    <div class="add_box_wrap">
-                                        <div class="add_box_info">
-                                            <div>
-                                                <span>홍길동</span>
-                                                <small>2024-04-29</small>
-                                            </div>
-                                            <div class="btn_wrap">
-                                                <button type="button">
-                                                    <img src="/img/Mode edit.svg" alt="" />
-                                                </button>
-                                                <button type="button">
-                                                    <img src="/img/Close.svg" alt="" />
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="add_box_write">
-                                            <textarea name="" class="pre" >@이수은 내용들어갑니다내용들어갑니다내용들어갑니다내용들어갑니다내용들어갑니다</textarea>
-                                            <div class="file_box_write">
-                                                <div class="img_wrap">
-                                                    <img src="/img/Frame 86.png" alt="" />
-                                                </div>
-                                                <button type="button"><img src="/img/File download_color.svg" alt="" />이미지 한번에 내려받기</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="add_box_new_write">
-                                    <textarea name="" id="" class="pre">@변가연 태그예시내용</textarea>
-                                    <div class="btn_wrap">
-                                        <div>
-                                            <button type="button">파일첨부</button>
-                                            <button type="button">@태그</button>
-                                        </div>
-                                        <div>
-                                            <button type="button" class="enter_btn">
-                                                <img src="/img/Arrow right alt.svg" alt="" />
-                                            </button>
-                                            <label> <input type="checkbox" />전체공개 </label>
-                                        </div>
-                                    </div>
+                                <div class="file_bottom_box">
+                                    <p>총 '10'개의 파일을 첨부할수 있습니다.</p>
+                                    <p>파일당 용량 제한은 '100MB' 입니다.</p>
+                                    <p>업로드는 [jpg, gif, png, bmp, doc, ppt, pdf, xls, zip, alz, swf, flv, hwp, xlsx, pptx, docx, pps, ppsx, tif, wmv, hwpx, jpeg, pptm, txt]파일만 가능합니다.</p>
+                                    <p>업로드 파일 제한 해제는 관리자에게 문의 해주세요.</p>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="add_emp_btn_wrap">
-                            <input type="button" value="목록" class="list_board_btn" />
-                            <input type="button" value="수정" class="modify_board_btn" />
-                            <input type="button" value="삭제" class="remove_board_btn" />
-                            <input type="submit" value="글쓰기" />
+                        <div class="add_request_btn_wrap">
+                            <input type="button" value="목록" class="add_emp_btn" style="background-color: transparent; color: #333" />
+                            <input type="button" value="수정하기" class="add_emp_btn" id="registration" name="registration" />
                         </div>
-
-                        <input type="hidden" id="maintenanceSeq" name="seq" th:value="${maintenanceDetail.seq}">
                     </form>
                 </div>
             </div>
@@ -191,7 +103,6 @@
 
     <!-- 유지보수  Javascript -->
     <th:block layout:fragment="customJS">
-        <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-        <script src="/js/templates/enterprise/csf/maintenance_view.js"></script>
+        <script src="/js/templates/enterprise/csf/maintenance_modify.js"></script>
     </th:block>
 </html>
