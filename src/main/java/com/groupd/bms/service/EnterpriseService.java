@@ -130,8 +130,10 @@ public class EnterpriseService {
 
         String gubun = StringUtil.objectToString(requestHashMap.get("gubun"));
 
-        if("".equals(gubun)) {
+        if("regist".equals(gubun)) {
             requestHashMap.put("gubun", "REGIST");  
+        }else{
+            requestHashMap.put("gubun", "MODIFY");  
         }
 
         enterpriseRepository.taskReqBoardRegModify(requestHashMap);

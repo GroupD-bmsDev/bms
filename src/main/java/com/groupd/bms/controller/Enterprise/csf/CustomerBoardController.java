@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import com.google.gson.Gson;
 import com.groupd.bms.controller.BaseController;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.HashMap;
@@ -487,7 +489,18 @@ public class CustomerBoardController extends BaseController{
         
         HashMap<String, Object> RegistrationMap = setRequest(request);
 
+        String corrections = StringUtil.objectToString(RegistrationMap.get("corrections"));
 
+        if("Y".equals(corrections))
+            RegistrationMap.put("gubun", "modify");
+        else
+            RegistrationMap.put("gubun", "regist");
+
+        // Gson으로 JSON 형식으로 변환
+        Gson gson = new Gson();
+        String json = gson.toJson(RegistrationMap);
+
+        log.info("json: "+json);
         //유지보수 게시판 등록
         enterpriseService.setMaintenancewrite(RegistrationMap);
 
