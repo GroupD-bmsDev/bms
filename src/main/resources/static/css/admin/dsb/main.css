@@ -243,6 +243,8 @@
     background-color: #443f75;
     padding: 18px 20px;
     display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 .main_board_state {
     display: flex;
@@ -269,7 +271,6 @@
 }
 .main_board_category {
     display: flex;
-    margin-left: 31px;
     align-items: center;
 }
 .main_board_category > span {

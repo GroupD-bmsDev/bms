@@ -5,8 +5,7 @@
         <link rel="stylesheet" href="/css/admin/dsb/main.css" />
     </th:block>
 
-    <body>        
-        
+    <body>
         <div layout:fragment="content" id="content-wrapper" class="d-flex flex-column">
             <main class="main">
                 <section class="main_content">
@@ -73,17 +72,17 @@
                         </div>
                         <div class="main_board_menu">
                             <div class="main_board_state">
-                                <span class="" data-state="">전체</span>
+                                <span class="active" data-state="">전체</span>
                                 <span class="state_receive" data-state="RECV">접수</span>
                                 <!-- <span class="active state_receive" data-state="RECV">접수</span> -->
                                 <span class="state_check" data-state="CONF">확인</span>
                                 <span class="state_progress" data-state="PROG">진행</span>
                                 <span class="state_complete" data-state="DONE">완료</span>
                                 <span class="state_other" data-state="OTHR">기타</span>
-                                <span class="state_hold" data-state="HOLD">보류</span>                                
+                                <span class="state_hold" data-state="HOLD">보류</span>
                             </div>
                             <div class="main_board_category">
-                                <span class="" data-state="">전체</span>
+                                <span class="active" data-state="">전체</span>
                                 <span class="cat_mk" data-state="MARKETING">마케팅</span>
                                 <span class="cat_mk" data-state="MARKETING">기획</span>
                                 <span class="cat_ec" data-state="AD_MNG">광고관리</span>
@@ -96,14 +95,14 @@
                             </div>
                         </div>
                         <form id="taskForm">
-                            <input type="hidden" id="taskStateWord" name="taskStateWord" value="">
-                            <input type="hidden" id="taskStateType" name="taskStateType" value="">
-                            <input type="hidden" id="gdDepartCodeWord" name="gdDepartCodeWord" value="">
-                            <input type="hidden" id="gdDepartCodeType" name="gdDepartCodeType" value="">
+                            <input type="hidden" id="taskStateWord" name="taskStateWord" value="" />
+                            <input type="hidden" id="taskStateType" name="taskStateType" value="" />
+                            <input type="hidden" id="gdDepartCodeWord" name="gdDepartCodeWord" value="" />
+                            <input type="hidden" id="gdDepartCodeType" name="gdDepartCodeType" value="" />
                         </form>
                         <ul class="main_board_wrap">
                             <!-- 게시판 List 출력부분 -->
-                        </ul> 
+                        </ul>
 
                         <!-- 기존Design, 추후 삭제예정
                         <ul class="main_board_wrap2">
@@ -289,12 +288,10 @@
                                 <span class="main_board_wkname">이슬</span>
                             </li>                            
                         </ul>  -->
-                            
-                            
-
-                        
                     </div>
-                    <span class="main_board_ext sub_center"><a href="/admin/csf/maintenance" ><img src="/img/main_board_ext.svg" alt="확장" /></a></span>
+                    <span class="main_board_ext sub_center"
+                        ><a href="/admin/csf/maintenance"><img src="/img/main_board_ext.svg" alt="확장" /></a
+                    ></span>
                 </section>
                 <aside class="main_side main_right_side">
                     <div class="main_side_alert_wrap">
