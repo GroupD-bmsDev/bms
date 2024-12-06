@@ -157,6 +157,20 @@ html {
 .btnView.on:after {
     background: url(/img/ico_pw_off.svg) no-repeat;
 }
+.login_check input[type='checkbox'] {
+    width: 28px;
+    height: 28px;
+    appearance: none;
+    cursor: pointer;
+    background: url(/img/ico_ck_off.svg) no-repeat;
+}
+.login_check input[type='checkbox']:checked {
+    background: url(/img/ico_ck_on.svg) no-repeat;
+}
+.login_check > div {
+    display: flex;
+    align-items: center;
+}
 @media screen and (max-width: 1600px) {
     .login_wrap {
         width: 420px;
