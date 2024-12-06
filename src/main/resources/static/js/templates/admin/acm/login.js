@@ -5,11 +5,25 @@ $(document).ready(function () {
         $('#userId').val(savedUserId);
         $('#rememberMe').prop('checked', true);
     }
-
+    $('.btnView').on('click', function () {
+        var oThis = $(this);
+        var oPassField = $('#password');
+        var sRemoveClass = 'on';
+        var sAddClass = 'off';
+        var sInputType = 'password';
+        if (oThis.hasClass('off') === true) {
+            sRemoveClass = 'off';
+            sAddClass = 'on';
+            sInputType = 'text';
+        }
+        oThis.removeClass(sRemoveClass);
+        oThis.addClass(sAddClass);
+        oPassField.attr('type', sInputType);
+    });
     /**
      * 로그인 버튼
      */
-    $("#loginBtn").click(function () {
+    $('#loginBtn').click(function () {
         var username = $('#userId').val();
         var password = $('#password').val();
 
@@ -34,33 +48,39 @@ $(document).ready(function () {
         // 자동 로그인 체크박스 검사
         if ($('#autoLogin').is(':checked')) {
             // 예제 사용법
-            setCookie("autoLogin", "true", 365);
-            setCookie("userId", username, 365);
-            setCookie("password", password, 365);
+            setCookie('autoLogin', 'true', 365);
+            setCookie('userId', username, 365);
+            setCookie('password', password, 365);
         } else {
-            document.cookie = "autoLogin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            document.cookie = "userId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            document.cookie = "password=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = 'autoLogin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            document.cookie = 'userId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            document.cookie = 'password=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
         }
 
         // 로그인 데이터 준비
         var loginData = {
             userId: username,
-            password: password
+            password: password,
         };
 
         // ajaxRequest 함수를 사용하여 로그인 처리
-        ajaxRequest("/admin/acm/loginProcess.do", loginData, "POST", function (response) {
-            // 로그인 성공 시 대시보드 페이지로 리디렉트
-            if (response.retVal == 0) {
-                setCookie("gubun", "BMS", 365);
-                location.href = "/admin/dsb/main";
-            } else {
-                alert(response.errMsg);
+        ajaxRequest(
+            '/admin/acm/loginProcess.do',
+            loginData,
+            'POST',
+            function (response) {
+                // 로그인 성공 시 대시보드 페이지로 리디렉트
+                if (response.retVal == 0) {
+                    setCookie('gubun', 'BMS', 365);
+                    location.href = '/admin/dsb/main';
+                } else {
+                    alert(response.errMsg);
+                }
+            },
+            function () {
+                //error.status 분기에 따른 오류메세지 노출 필요
+                alert('로그인 처리중 오류가 발생하였습니다. 재 시도 해주시기 바랍니다.');
             }
-        }, function () {
-            //error.status 분기에 따른 오류메세지 노출 필요
-            alert('로그인 처리중 오류가 발생하였습니다. 재 시도 해주시기 바랍니다.');
-        });
+        );
     });
 });

@@ -124,6 +124,39 @@ html {
     font-weight: 400;
     color: #555;
 }
+.pw_wrap {
+    position: relative;
+    width: 100%;
+}
+.btnView {
+    position: absolute;
+    right: 0.75rem;
+    top: 0.813rem;
+    padding: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    min-height: 1.5rem;
+    font-size: 0;
+    color: transparent;
+    text-indent: 150%;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+.btnView:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+.btnView.off:after {
+    background: url(/img/ico_pw_on.svg) no-repeat;
+}
+.btnView.on:after {
+    background: url(/img/ico_pw_off.svg) no-repeat;
+}
 @media screen and (max-width: 1600px) {
     .login_wrap {
         width: 420px;
